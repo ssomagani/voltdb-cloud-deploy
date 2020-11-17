@@ -1,0 +1,5 @@
+project 	= "volt-k8s"
+image 		= "voltdb-8-4-1-feb-18"
+region		= "us-east1"
+zone	   	= "us-east1-b"
+creds 		= "/Users/seetasomagani/keys/volt-k8s-27fea2b9d93a.json"
