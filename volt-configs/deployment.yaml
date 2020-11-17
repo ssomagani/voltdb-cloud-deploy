@@ -1,0 +1,7 @@
+heartbeat: 
+  timeout: 100
+cluster:
+  sitesperhost: 8
+  kfactor: 0
+dr:
+  id: 1

@@ -1,0 +1,10 @@
+<deployment>
+    <cluster kfactor="0" sitesperhost="8" />
+              <commandlog enabled="false" />
+              <snapshot enabled="false" />
+              <httpd enabled="true">
+              <jsonapi enabled="true" />
+              </httpd>
+	<dr id="1" />
+	<heartbeat timeout="100" />
+</deployment>

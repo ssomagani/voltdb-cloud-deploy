@@ -1,0 +1,5 @@
+{
+    "aliyun_region"			: "us-east-1",
+    "aliyun_image_name"		: "image-voltdb-8.4.2",
+    "voltdb_distrib_tar"	: "../../distributions/voltdb-ent-8.4.2.tar.gz"
+}

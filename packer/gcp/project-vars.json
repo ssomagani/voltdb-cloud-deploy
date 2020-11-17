@@ -1,0 +1,8 @@
+{
+    "source_image_family"	: "ubuntu-2004-lts",
+    "machine_type"			: "n1-standard-1",
+    "gcp_region"			: "us-east4",
+    "zone"					: "us-east4-a",
+    "project_id"			: "fourth-epigram-293718",
+    "service_account_json"  : "/Users/seetasomagani/keys/fourth-epigram-293718-39820b299571.json"
+}

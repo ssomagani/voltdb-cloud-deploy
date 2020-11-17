@@ -1,0 +1,6 @@
+{
+    "image_description"		: "Confluent Community 6.0.0 on Ubuntu",
+    "tar_file"        	    : "/Users/seetasomagani/distributions/confluent-community-5.5.1-2.12.tar.gz",
+    "image_name"            : "confluent-community-5-5-1",
+    "playbook"              : "../ansible/confluent-playbook.yml"
+}

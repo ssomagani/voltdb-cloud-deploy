@@ -1,0 +1,7 @@
+<deployment>
+	<cluster kfactor="1" sitesperhost="3"/>
+	<dr id="" role="">
+		<connection source=""/>
+	</dr>
+	<import/>
+</deployment>

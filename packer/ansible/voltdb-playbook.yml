@@ -1,0 +1,61 @@
+---
+- name: Setup VoltDB Dependencies
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+    - name: Add APT key
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: EEA14886
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+
+    # Updating and or upgrading APT messes with finding OpenJDK
+    # This does not work consistently
+    
+
+    - name: Update APT
+      apt:
+        update_cache: 'yes'
+#        upgrade: 'yes'
+        
+    - name: Install Java
+      apt: name='default-jdk'
+      
+    - name: Install Python2.7
+      apt: name='python2.7'
+      
+    - name: Symlink Python2.7
+      file:
+        src: '/usr/bin/python2.7'
+        dest: '/usr/bin/python'
+        state: link        
+
+    - name: Install NTP
+      apt: name='ntp' state=present
+      
+    - name: Disable THP
+      shell: "echo never > /sys/kernel/mm/transparent_hugepage/enabled; echo never > /sys/kernel/mm/transparent_hugepage/defrag"
+      
+    - name: Copy VoltDB
+      copy:
+        src: '{{ TAR_FILE }}'
+        dest: /tmp/voltdb.tar.gz
+    
+    # Not using implicit copy because https://github.com/ansible/ansible/issues/35645
+    - name: Extract VoltDB
+      unarchive:
+        src: /tmp/voltdb.tar.gz
+        dest: /opt/
+        remote_src: yes
+    
+    - name: Rename directory
+      command: mv /opt/voltdb-ent-10.2/ /opt/voltdb/
+      
+        

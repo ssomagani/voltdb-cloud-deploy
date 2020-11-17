@@ -1,0 +1,6 @@
+<deployment>
+	<cluster kfactor="0" sitesperhost="8"/>
+	<dr id="2">
+		<connection source="192.168.0.5"/>
+	</dr>
+</deployment>

@@ -1,0 +1,6 @@
+<deployment>
+	<cluster kfactor="" sitesperhost=""/>
+	<dr id="" role="xdcr">
+		<connection source=""/>
+	</dr>
+</deployment>

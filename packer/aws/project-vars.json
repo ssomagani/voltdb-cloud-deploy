@@ -1,0 +1,9 @@
+{
+    "aws_region"		    : "us-east-1",
+    "image_name"			: "VoltDB 10.2",
+    "voltdb_distrib_tar"	: "/Users/seetasomagani/distributions/voltdb-ent-10.2.tar.gz",
+    "source_image"		    : "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*",
+    "aws_access_key"	    : "AKIAJANN2AKZ5YFVQ5SA",
+    "aws_secret_key"	    : "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",
+    "playbook"              : "../ansible/ubuntu-python27-openjdk11-playbook.yml"
+}

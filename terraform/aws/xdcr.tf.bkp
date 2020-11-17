@@ -1,0 +1,28 @@
+provider "aws" {
+  access_key				= "${var.access_key}"
+  secret_key				= "${var.secret_key}"
+  region     				= "${var.region}"
+}
+
+module "vpc_east" {
+	source				= "./vpc"
+	subnet_cidr_block		= "192.168.1.0/28"
+	vpc_cidr_block			= "192.168.1.0/24"
+	zone				= "us-east-1"
+}
+
+module "vpc_west" {
+	source				= "./vpc"
+	subnet_cidr_block		= "192.168.1.0/28"
+	vpc_cidr_block			= "192.168.1.0/24"
+	zone				= "us-west-1"
+}
+
+module "volt_cluster" {
+	source 				= "./voltdb"
+	zone			 	= "us-east-1"
+	subnet_id 			= "${module.vpc.subnet_id}"
+	subnet_cidr_block		= "${var.subnet_cidr_block}"
+	ip_start_offset			= "${var.ip_start_offset}"
+	security_group_id 		= "${module.vpc.sg_id}"
+}

@@ -1,0 +1,35 @@
+{
+  "variables": {
+    "aws_access_key"		: "",
+    "aws_secret_key"		: ""
+  },
+  "builders": [
+  {
+    "type"			: "amazon-ebs",
+    "access_key"		: "{{user `aws_access_key`}}",
+    "secret_key"		: "{{user `aws_secret_key`}}",
+    "region"			: "{{user `aws_region`}}",
+    "source_ami_filter"		: {
+      "filters"			: {
+        "virtualization-type"	: "hvm",
+        "name"			: "{{user `source_image`}}",
+        "root-device-type"	: "ebs"
+      },
+      "owners"			: ["099720109477"],
+      "most_recent"		: true
+    },
+    "instance_type"		: "t3.medium",
+    "ssh_username"		: "ubuntu",
+    "ami_name"			: "{{user `image_name`}}"
+  }
+  ],
+  "provisioners": [
+         {  
+             "type"		: "ansible",
+             "playbook_file" : "{{user `playbook`}}",
+             "ansible_env_vars": [
+      			"ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no -o IdentitiesOnly=yes'"
+    		]
+         }
+      ]
+}

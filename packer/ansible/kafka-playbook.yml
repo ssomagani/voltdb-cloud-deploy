@@ -1,0 +1,90 @@
+---
+- name: Setup VoltDB Dependencies
+  hosts: all
+  remote_user: ubuntu
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+    - name: Add APT key
+      become: yes
+      become_method: sudo
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: EEA14886
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+ 
+    - name: Install Java
+      become: yes
+      become_method: sudo
+      apt: update_cache=yes name='openjdk-8-jdk-headless'
+      
+    - name: Install Python
+      become: yes
+      become_method: sudo
+      apt: name='python2.7'
+
+    - name: Create /usr/bin/python symbolic link
+      become: yes
+      become_method: sudo
+      file:
+        src: /usr/bin/python2.7
+        dest: /usr/bin/python
+        state: link
+            
+#    - name: Install NTP
+#      become: yes
+#      become_method: sudo
+#      apt: name='ntp' state=present
+      
+    - name: Disable THP
+      become: yes
+      become_method: sudo
+      shell: "echo never > /sys/kernel/mm/transparent_hugepage/enabled; echo never > /sys/kernel/mm/transparent_hugepage/defrag"
+    
+    - name: Download Kafka
+      get_url:
+        url: https://www.apache.org/dist/kafka/2.1.1/kafka_2.11-2.1.1.tgz
+        dest: /home/ubuntu/kafka_2.11-2.1.1.tgz
+        mode: '0666'
+        
+    - name: Create directory
+      file:
+        path: /home/ubuntu/kafka
+        state: directory
+        
+    - name: Extract Kafka
+      unarchive:
+        src: /home/ubuntu/kafka_2.11-2.1.1.tgz
+        dest: /home/ubuntu/kafka
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+    
+    - name: Copy kafka.service
+      become: yes
+      become_method: sudo
+      copy: src=../configs/kafka.service dest=/etc/systemd/system/kafka.service
+      
+    - name: Copy zookeeper.service
+      become: yes
+      become_method: sudo
+      copy: src=../configs/zookeeper.service dest=/etc/systemd/system/zookeeper.service
+      
+    - name: Start Kafka service
+      become: yes
+      become_method: sudo
+      shell: "systemctl start kafka"
+
+    - name: Copy and extract VoltDB
+      unarchive:
+        src: ../../distributions/voltdb-ent-8.0.tar.gz
+        dest: /home/ubuntu/
+
+#   - name: Copy license file
+
+#   - name: Add VoltDB bin to path
+
+#   - name: Initialize and run VoltDB
+    

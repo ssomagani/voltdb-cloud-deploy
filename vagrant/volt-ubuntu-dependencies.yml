@@ -1,0 +1,32 @@
+---
+- name: Setup VoltDB Dependencies
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+
+  pre_tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+  tasks:
+    - name: Add APT key
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: B1998361219BD9C9
+
+    - name: Add Java APT repository
+      apt_repository: 
+        repo: deb http://repos.azulsystems.com/ubuntu stable main
+        state: present
+
+    - name: Install JDK 12
+      apt: name='zulu-12' state=present
+            
+    - name: Install NTP
+      apt: name='ntp' state=present
+      
+    - name: Disable THP
+      shell: "echo never > /sys/kernel/mm/transparent_hugepage/enabled; echo never > /sys/kernel/mm/transparent_hugepage/defrag"

@@ -1,0 +1,40 @@
+{
+     "variables": {
+       "access_key"		: 	"",
+       "secret_key"		: 	""
+     },
+     "builders": [{
+       "type"					:	"alicloud-ecs",
+       "access_key"				:	"{{user `access_key`}}",
+       "secret_key"				:	"{{user `secret_key`}}",
+       "region"					:	"{{user `aliyun_region`}}",
+       "image_name"				:	"{{user `aliyun_image_name`}}",
+       "source_image"			:	"ubuntu_16_04_64_20G_alibase_20190301.vhd",
+       "ssh_username"			:	"root",
+       "instance_type"			:	"ecs.t5-lc1m2.small",
+       "internet_charge_type"	:	"PayByTraffic",
+       "io_optimized"			:	"true"
+     }],
+  "provisioners": [
+         {  
+             "type"		: "shell",
+             "scripts"		: [
+                 "../../scripts/ubuntu-volt-dependencies.sh"
+             ]
+         },
+          {
+             "type"		: "file",
+             "source"		: "{{user `voltdb_distrib_tar`}}",
+             "destination"	: "/tmp/voltdb.tar.gz"
+          },
+          {
+             "type"		: "shell",
+             "inline"		: [
+             "sudo su -",
+             "tar -xzf /tmp/voltdb.tar.gz",
+             "mv ~/voltdb-ent-* /opt/voltdb",
+             "echo 'export PATH=$PATH:/opt/voltdb/bin' >> ~/.profile"
+              ]
+         }
+      ]
+}

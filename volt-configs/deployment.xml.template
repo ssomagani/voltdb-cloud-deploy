@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deployment>
+    <cluster sitesperhost="" kfactor=""/>
+    <commandlog enabled=""/>
+    <snapshot enabled="false"/>
+    <httpd enabled="true">
+              <jsonapi enabled="true" />
+    </httpd>
+</deployment>
