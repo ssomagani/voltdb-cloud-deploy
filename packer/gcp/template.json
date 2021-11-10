@@ -33,7 +33,7 @@
       			"ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no -o IdentitiesOnly=yes'",
                 "ANSIBLE_CONFIG=../ansible/ansible.cfg"
     		],
-             "extra_arguments": ["--extra-vars", "TAR_FILE={{ user `tar_file` }}"]
+             "extra_arguments": ["--extra-vars", "TAR_FILE={{ user `tar_file` }}", "--extra-vars", "VERSION={{ user `version` }}" ]
          }
       ]
 }

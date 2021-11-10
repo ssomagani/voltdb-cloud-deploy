@@ -1,6 +1,7 @@
 {
-    "image_description"		: "VoltDB 10.2 on Ubuntu",
-    "tar_file"	            : "/Users/seetasomagani/distributions/voltdb-ent-10.2.tar.gz",
-    "image_name"            : "voltdb-ent-10-2",
+    "version"               : "voltdb-ent-11.2",
+    "image_description"		: "VoltDB 11.2 on Ubuntu",
+    "tar_file"	            : "/Users/seetasomagani/distributions/voltdb-ent-11.2.tar.gz",
+    "image_name"            : "voltdb-ent-11-2",
     "playbook"              : "../ansible/voltdb-playbook.yml"
 }

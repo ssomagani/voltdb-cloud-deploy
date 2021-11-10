@@ -56,6 +56,5 @@
         remote_src: yes
     
     - name: Rename directory
-      command: mv /opt/voltdb-ent-10.2/ /opt/voltdb/
+      command: mv /opt/'{{ VERSION }}' /opt/voltdb/
       
-        
